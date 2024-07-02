@@ -52,23 +52,23 @@ async def fallen_st(_, message: Message):
                     link = result["link"]
                     published = result["publishedTime"]
                 searched_text = f"""
-➻ **ᴛʀᴀᴄᴋ ɪɴғᴏʀɴᴀᴛɪᴏɴ** 
+➻ **PARÇA BİLGİSİ** 
 
-📌 **ᴛɪᴛʟᴇ :** {title}
+📌 **BAŞLIK :** {title}
 
-⏳ **ᴅᴜʀᴀᴛɪᴏɴ :** {duration} ᴍɪɴᴜᴛᴇs
-👀 **ᴠɪᴇᴡs :** `{views}`
-⏰ **ᴩᴜʙʟɪsʜᴇᴅ ᴏɴ :** {published}
-🔗 **ʟɪɴᴋ :** [ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ]({link})
-🎥 **ᴄʜᴀɴɴᴇʟ :** [{channel}]({channellink})
+⏳ **BEKLEME SÜRESİ :** {duration} ᴍɪɴᴜᴛᴇs
+👀 **İZLENME :** `{views}`
+⏰ **YAYINLANMA :** {published}
+🔗 **LİNK :** [ᴡᴀᴛᴄʜ ᴏɴ ʏᴏᴜᴛᴜʙᴇ]({link})
+🎥 **KANAL :** [{channel}]({channellink})
 
-💖 sᴇᴀʀᴄʜ ᴩᴏᴡᴇʀᴇᴅ ʙʏ {BOT_NAME}"""
+💖 ARAMA {BOT_NAME}"""
                 key = InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text="ʏᴏᴜᴛᴜʙᴇ", url=link),
+                            InlineKeyboardButton(text="YOUTUBE", url=link),
                             InlineKeyboardButton(
-                                text="sᴜᴩᴩᴏʀᴛ", url=config.SUPPORT_CHAT
+                                text="DESTEK", url=config.SUPPORT_CHAT
                             ),
                         ],
                     ]
