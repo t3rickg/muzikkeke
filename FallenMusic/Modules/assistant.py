@@ -85,7 +85,7 @@ async def set_name(_, message: Message):
             name = msg.text
             await app2.update_profile(first_name=name)
             return await message.reply_text(
-                f"» {ASS_MENTION} ɴᴀᴍᴇ ᴄʜᴀɴɢᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ."
+                f"» {ASS_MENTION} İSİM DEĞİŞTİRİLDİ."
             )
     elif len(message.command) != 1:
         name = message.text.split(None, 1)[1]
