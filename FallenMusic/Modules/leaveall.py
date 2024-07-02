@@ -32,7 +32,7 @@ from FallenMusic import ASS_MENTION, SUNAME, app, app2
 
 @app.on_message(filters.command(["leaveall", "assleaveall"]) & filters.user(OWNER_ID))
 async def ass_leaveall(_, message: Message):
-    lear = await message.reply_text(f"» {ASS_MENTION} sᴛᴀʀᴛᴇᴅ ʟᴇᴀᴠɪɴɢ ᴄʜᴀᴛs...")
+    lear = await message.reply_text(f"» {ASS_MENTION} sohbetleri terk etmeye başladı...")
     left = 0
     failed = 0
     chats = []
@@ -51,13 +51,13 @@ async def ass_leaveall(_, message: Message):
                 continue
             await asyncio.sleep(flood_time)
         except Exception:
-            continue
             failed += 1
+            continue
     try:
         await lear.edit_text(
-            f"<u>**» {ASS_MENTION} sᴜᴄᴄᴇssғᴜʟʟʏ ʟᴇғᴛ ᴄʜᴀᴛs :**</u>\n\n**ʟᴇғᴛ :** `{left}`\n**ғᴀɪʟᴇᴅ :** `{failed}`"
+            f"<u>**» {ASS_MENTION} başarıyla terk edilen sohbetler :**</u>\n\n**Terk edilen :** `{left}`\n**Başarısız :** `{failed}`"
         )
     except:
         await message.reply_text(
-            f"<u>**» {ASS_MENTION} sᴜᴄᴄᴇssғᴜʟʟʏ ʟᴇғᴛ ᴄʜᴀᴛs :**</u>\n\n**ʟᴇғᴛ :** `{left}`\n**ғᴀɪʟᴇᴅ :** `{failed}`"
+            f"<u>**» {ASS_MENTION} başarıyla terk edilen sohbetler :**</u>\n\n**Terk edilen :** `{left}`\n**Başarısız :** `{failed}`"
         )
