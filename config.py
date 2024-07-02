@@ -24,4 +24,4 @@ SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/tekornetwork")
 SUDO_USERS = list(map(int, getenv("SUDO_USERS", "7303086953").split()))
 
 
-FAILED = "https://te.legra.ph/file/4c896584b592593c00aa8.jpg"
+FAILED = "https://i.hizliresim.com/p9rb864.png"
