@@ -39,7 +39,7 @@ from FallenMusic.Modules import ALL_MODULES
 @app.on_message(filters.command(["stats", "sysstats"]) & SUDOERS)
 async def sys_stats(_, message: Message):
     sysrep = await message.reply_text(
-        f"ɢᴇᴛᴛɪɴɢ {BOT_NAME} sʏsᴛᴇᴍ sᴛᴀᴛs, ɪᴛ'ʟʟ ᴛᴀᴋᴇ ᴀ ᴡʜɪʟᴇ..."
+        f"{BOT_NAME} sistem istatistikleri alınıyor, bu biraz zaman alacak..."
     )
     try:
         await message.delete()
@@ -53,17 +53,17 @@ async def sys_stats(_, message: Message):
     processor = platform.processor()
     mac_address = ":".join(re.findall("..", "%012x" % uuid.getnode()))
     sp = platform.system()
-    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " ɢʙ"
+    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
-            cpu_freq = f"{round(cpu_freq / 1000, 2)}ɢʜᴢ"
+            cpu_freq = f"{round(cpu_freq / 1000, 2)} GHz"
         else:
-            cpu_freq = f"{round(cpu_freq, 2)}ᴍʜᴢ"
+            cpu_freq = f"{round(cpu_freq, 2)} MHz"
     except:
-        cpu_freq = "ғᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ"
+        cpu_freq = "Bilgi alınamadı"
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0**3)
     total = str(total)
@@ -76,37 +76,37 @@ async def sys_stats(_, message: Message):
 
     await sysrep.edit_text(
         f"""
-➻ <u>**{BOT_NAME} sʏsᴛᴇᴍ sᴛᴀᴛs**</u>
+➻ <u>**{BOT_NAME} Sistem İstatistikleri**</u>
 
-**ᴩʏᴛʜᴏɴ :** {pyver.split()[0]}
-**ᴩʏʀᴏɢʀᴀᴍ :** {pyrover}
-**ᴩʏ-ᴛɢᴄᴀʟʟs :** {pytgver}
-**sᴜᴅᴏᴇʀs :** `{sudoers}`
-**ᴍᴏᴅᴜʟᴇs :** `{mod}`
+**Python :** {pyver.split()[0]}
+**Pyrogram :** {pyrover}
+**Py-TgCalls :** {pytgver}
+**Sudoers :** `{sudoers}`
+**Modüller :** `{mod}`
 
-**ɪᴘ :** {ip_address}
-**ᴍᴀᴄ :** {mac_address}
-**ʜᴏsᴛɴᴀᴍᴇ :** {hostname}
-**ᴘʟᴀᴛғᴏʀᴍ :** {sp}
-**ᴘʀᴏᴄᴇssᴏʀ :** {processor}
-**ᴀʀᴄʜɪᴛᴇᴄᴛᴜʀᴇ :** {architecture}
-**ᴘʟᴀᴛғᴏʀᴍ ʀᴇʟᴇᴀsᴇ :** {platform_release}
-**ᴘʟᴀᴛғᴏʀᴍ ᴠᴇʀsɪᴏɴ :** {platform_version}
+**IP :** {ip_address}
+**MAC :** {mac_address}
+**Hostname :** {hostname}
+**Platform :** {sp}
+**İşlemci :** {processor}
+**Mimari :** {architecture}
+**Platform Sürümü :** {platform_release}
+**Platform Versiyonu :** {platform_version}
 
-        <b><u>sᴛᴏʀᴀɢᴇ</b><u/>
-**ᴀᴠᴀɪʟᴀʙʟᴇ :** {total[:4]} ɢɪʙ
-**ᴜsᴇᴅ :** {used[:4]} ɢɪʙ
-**ғʀᴇᴇ :** {free[:4]} ɢɪʙ
+        <b><u>Depolama</b><u/>
+**Kullanılabilir :** {total[:4]} GiB
+**Kullanılan :** {used[:4]} GiB
+**Boş :** {free[:4]} GiB
 
-**ʀᴀᴍ :** {ram}
-**ᴩʜʏsɪᴄᴀʟ ᴄᴏʀᴇs :** {p_core}
-**ᴛᴏᴛᴀʟ ᴄᴏʀᴇs :** {t_core}
-**ᴄᴩᴜ ғʀᴇǫᴜᴇɴᴄʏ :** {cpu_freq}""",
+**RAM :** {ram}
+**Fiziksel Çekirdekler :** {p_core}
+**Toplam Çekirdekler :** {t_core}
+**CPU Frekansı :** {cpu_freq}""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="ᴄʟᴏsᴇ",
+                        text="Kapat",
                         callback_data=f"forceclose abc|{message.from_user.id}",
                     ),
                 ]
