@@ -51,12 +51,12 @@ pm_buttons = [
     ],
     [InlineKeyboardButton(text="Yardım & Komutlar", callback_data="fallen_help")],
     [
-        InlineKeyboardButton(text="❄ Anlık Haber ❄", url=config.SUPPORT_CHANNEL),
+        InlineKeyboardButton(text="❄ Destek Kanalımız ❄", url=config.SUPPORT_CHANNEL),
         InlineKeyboardButton(text="✨ Sohbet Grubumuz ✨", url=config.SUPPORT_CHAT),
     ],
     [
         InlineKeyboardButton(
-            text="💟 Reklam ve işbirliği", url="t.me/t3rickg"
+            text="💟 Reklam ve işbirliği", url="t.me/Officialkiyici"
         ),
         InlineKeyboardButton(text="🦊 Yapımcı", user_id=config.OWNER_ID),
     ],
