@@ -33,6 +33,8 @@ from youtubesearchpython.__future__ import VideosSearch
 from config import FAILED
 from FallenMusic import BOT_ID, LOGGER, app
 
+DEFAULT_COVER_IMAGE = "https://i.hizliresim.com/7w8wyd3.jpg"
+
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -47,7 +49,7 @@ def add_corners(im):
     bigsize = (im.size[0] * 3, im.size[1] * 3)
     mask = Image.new("L", bigsize, 0)
     ImageDraw.Draw(mask).ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(im.size, Image.Resampling.LANCZOS)
+    mask = mask.resize(im.size, Image.LANCZOS)
     mask = ImageChops.darker(mask, im.split()[-1])
     im.putalpha(mask)
 
@@ -55,32 +57,10 @@ def add_corners(im):
 async def gen_thumb(videoid, user_id):
     if os.path.isfile(f"cache/{videoid}_{user_id}.png"):
         return f"cache/{videoid}_{user_id}.png"
-    url = f"https://www.youtube.com/watch?v={videoid}"
+    
     try:
-        results = VideosSearch(url, limit=1)
-        for result in (await results.next())["result"]:
-            try:
-                title = result["title"]
-                title = re.sub("\W+", " ", title)
-                title = title.title()
-            except:
-                title = "Unsupported Title"
-            try:
-                duration = result["duration"]
-            except:
-                duration = "Unknown"
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-            try:
-                result["viewCount"]["short"]
-            except:
-                pass
-            try:
-                result["channel"]["name"]
-            except:
-                pass
-
         async with aiohttp.ClientSession() as session:
-            async with session.get(thumbnail) as resp:
+            async with session.get(DEFAULT_COVER_IMAGE) as resp:
                 if resp.status == 200:
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
@@ -126,7 +106,7 @@ async def gen_thumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.Resampling.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -135,7 +115,7 @@ async def gen_thumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.Resampling.LANCZOS)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
         width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 138), mask=logo)
@@ -144,10 +124,8 @@ async def gen_thumb(videoid, user_id):
 
         draw = ImageDraw.Draw(background)
         font = ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 45)
-        ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 70)
         arial = ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 30)
-        ImageFont.truetype("FallenMusic/Helpers/utils/font.ttf", 30)
-        para = textwrap.wrap(title, width=32)
+        para = textwrap.wrap("Song Title", width=32)  # Placeholder title
         try:
             draw.text(
                 (450, 25),
@@ -179,10 +157,10 @@ async def gen_thumb(videoid, user_id):
                 )
         except:
             pass
-        text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
+        text_w, text_h = draw.textsize(f"Duration: Unknown Mins", font=arial)  # Placeholder duration
         draw.text(
             ((1280 - text_w) / 2, 660),
-            f"Duration: {duration} Mins",
+            f"Duration: Unknown Mins",
             fill="white",
             font=arial,
         )
@@ -194,38 +172,16 @@ async def gen_thumb(videoid, user_id):
         return f"cache/{videoid}_{user_id}.png"
     except Exception as e:
         LOGGER.error(e)
-        return FAILED
+        return DEFAULT_COVER_IMAGE
 
 
 async def gen_qthumb(videoid, user_id):
     if os.path.isfile(f"cache/que{videoid}_{user_id}.png"):
         return f"cache/que{videoid}_{user_id}.png"
-    url = f"https://www.youtube.com/watch?v={videoid}"
+    
     try:
-        results = VideosSearch(url, limit=1)
-        for result in (await results.next())["result"]:
-            try:
-                title = result["title"]
-                title = re.sub("\W+", " ", title)
-                title = title.title()
-            except:
-                title = "Unsupported Title"
-            try:
-                duration = result["duration"]
-            except:
-                duration = "Unknown"
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-            try:
-                result["viewCount"]["short"]
-            except:
-                pass
-            try:
-                result["channel"]["name"]
-            except:
-                pass
-
         async with aiohttp.ClientSession() as session:
-            async with session.get(thumbnail) as resp:
+            async with session.get(DEFAULT_COVER_IMAGE) as resp:
                 if resp.status == 200:
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
@@ -271,7 +227,7 @@ async def gen_qthumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.Resampling.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -280,7 +236,7 @@ async def gen_qthumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.Resampling.LANCZOS)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
         width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 138), mask=logo)
@@ -289,17 +245,15 @@ async def gen_qthumb(videoid, user_id):
 
         draw = ImageDraw.Draw(background)
         font = ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 45)
-        ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 70)
         arial = ImageFont.truetype("FallenMusic/Helpers/utils/font2.ttf", 30)
-        ImageFont.truetype("FallenMusic/Helpers/utils/font.ttf", 30)
-        para = textwrap.wrap(title, width=32)
+        para = textwrap.wrap("Song Title", width=32)  # Placeholder title
         try:
             draw.text(
-                (455, 25),
-                "ADDED TO QUEUE",
+                (450, 25),
+                f"STARTED PLAYING",
                 fill="white",
-                stroke_width=5,
-                stroke_fill="black",
+                stroke_width=3,
+                stroke_fill="grey",
                 font=font,
             )
             if para[0]:
@@ -324,14 +278,13 @@ async def gen_qthumb(videoid, user_id):
                 )
         except:
             pass
-        text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
+        text_w, text_h = draw.textsize(f"Duration: Unknown Mins", font=arial)  # Placeholder duration
         draw.text(
             ((1280 - text_w) / 2, 660),
-            f"Duration: {duration} Mins",
+            f"Duration: Unknown Mins",
             fill="white",
             font=arial,
         )
-
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:
@@ -340,4 +293,4 @@ async def gen_qthumb(videoid, user_id):
         return f"cache/que{videoid}_{user_id}.png"
     except Exception as e:
         LOGGER.error(e)
-        return FAILED
+        return DEFAULT_COVER_IMAGE
