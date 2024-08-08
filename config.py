@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-API_ID = getenv("22659994")
-API_HASH = getenv("2c89964a0088a7a39ec819c60ae67de7")
+API_ID = '22659994'
+API_HASH = '2c89964a0088a7a39ec819c60ae67de7'
+BOT_TOKEN = '5909970619:AAGbiFzsH_Owy350MUmHhdPDQsPddEr-0Xw'
 
-BOT_TOKEN = getenv("5909970619:AAGbiFzsH_Owy350MUmHhdPDQsPddEr-0Xw", None)
 DURATION_LIMIT = int(getenv("DURATION_LIMIT", "90"))
 
 OWNER_ID = getenv("6563936773")
