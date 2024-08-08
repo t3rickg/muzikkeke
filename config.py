@@ -21,7 +21,7 @@ SESSION = getenv("SESSION", None)
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/tilkicitayfa")
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/tekornetwork")
 
-SUDO_USERS = list(map(int, getenv("SUDO_USERS", "7303086953").split()))
+SUDO_USERS = list(map(int, getenv("SUDO_USERS", "7490336041").split()))
 
 
 FAILED = "https://i.hizliresim.com/p9rb864.png"
