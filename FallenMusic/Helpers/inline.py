@@ -76,7 +76,7 @@ gp_buttons = [
     ],
     [
         InlineKeyboardButton(
-            text="💟 Reklam ve işbirliği", url="t.me/t3rickg"
+            text="💟 Reklam ve işbirliği", url="t.me/Officialkiyici"
         ),
         InlineKeyboardButton(text="🦊 Yapımcı", user_id=config.OWNER_ID),
     ],
